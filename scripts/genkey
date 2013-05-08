@@ -1,0 +1,33 @@
+#!/bin/bash
+if test $# -eq 0
+then
+     echo "Give your email adresse as argument"
+     exit 1 
+fi
+
+# Checks to see if there is a directory named ".ssh" in your user directory
+cd ~/.ssh
+
+if [ ! -f ~/.ssh/id_rsa.pub ]; then
+
+	#Creates a new ssh key using the provided email
+	  ssh-keygen -t rsa -C $1
+fi
+
+packagename=xclip
+
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $packagename|grep "install ok installed")
+echo "Checking for somelib: $PKG_OK"
+
+if [ "" == "$PKG_OK" ]; then
+  echo "No somelib. Setting up somelib."
+  sudo apt-get --force-yes --yes install $packagename
+fi
+
+
+# Downloads and installs xclip
+#sudo apt-get install xclip
+
+
+# Copies the contents of the id_rsa.pub file to your clipboard
+xclip -sel clip < ~/.ssh/id_rsa.pub
