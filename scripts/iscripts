@@ -1,0 +1,6 @@
+
+#install custom shell commands
+for var in "$@"
+do
+    doexe $var
+done

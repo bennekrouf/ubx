@@ -1,1 +1,10 @@
-iptables -A INPUT -p tcp -d 0/0 -s 0/0 --dport 4369 -j ACCEPT
+#!/bin/bash
+if test $# -eq 0
+then
+     echo "Give the port number you want to open"
+     exit 1 
+fi
+
+
+
+iptables -A INPUT -p tcp -d 0/0 -s 0/0 --dport $1 -j ACCEPT

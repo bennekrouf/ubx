@@ -1,0 +1,5 @@
+chmod +x doexe
+cp doexe /usr/local/bin
+
+doexe genkey oport
+
